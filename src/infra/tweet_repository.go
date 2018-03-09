@@ -1,20 +1,23 @@
-package gateway
+package infra
 
-import "app/entity"
+import "../domain"
 
 type TweetRepository struct {
-	tweets entity.Tweets
+	tweets domain.Tweets
 }
 
-func NewTweetRepository() (*TweetRepository, error) {
-	return &TweetRepository{}, nil
+func NewTweetRepository() *TweetRepository {
+	return &TweetRepository{}
 }
 
-func (tr *TweetRepository) Save(t entity.Tweet) (int, error) {
+func (tr *TweetRepository) Save(t domain.Tweet) error {
 	tr.tweets = append(tr.tweets, t)
-	return id, nil
+	return nil
 }
 
-func (tr *TweetRepository) GetAll() (entity.Tweets, error) {
-	return tr.tweets, nil
+func (tr *TweetRepository) GetTweetsForUser(userID int) domain.Tweets {
+
+	// some filtering logic here...
+
+	return tr.tweets
 }

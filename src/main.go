@@ -2,6 +2,7 @@ package main
 
 import (
 	"./domain"
+	"./infra"
 	"./usecase"
 	"fmt"
 )
@@ -11,11 +12,23 @@ func main() {
 
 	u := domain.NewUser("Uncle Bob")
 
+	tr := infra.NewTweetRepository()
+
+	ptu := usecase.PostTweetUsecase{
+		TweetRepository: tr,
+	}
 	text := "This is my first tweet!"
-	ptu := usecase.PostTweetUsecase{}
 	err := ptu.Post(u, text)
 	if err != nil {
 		panic("Couldn't post tweet...")
 	}
 
+	gtu := usecase.GetTweetUsecase{
+		TweetRepository: tr,
+	}
+	tweets := gtu.GetTweetsForUser(&u)
+
+	for _, t := range tweets {
+		fmt.Println(t.Text)
+	}
 }

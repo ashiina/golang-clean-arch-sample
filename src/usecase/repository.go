@@ -4,7 +4,7 @@ import "../domain"
 
 type TweetRepository interface {
 	Save(domain.Tweet) error
-	GetAll() (domain.Tweets, error)
+	GetTweetsForUser(userID int) domain.Tweets
 }
 
 type UserRepository interface {
